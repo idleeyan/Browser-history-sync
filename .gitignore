@@ -68,3 +68,6 @@ public/
 
 # 临时开发服务器日志
 *.log
+
+# Trae AI 配置目录
+.trae/

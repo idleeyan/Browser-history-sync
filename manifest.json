@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "WebDAV浏览历史同步",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "通过WebDAV同步Chrome内核浏览器历史记录，生成可视化报告",
   "permissions": [
     "history",
