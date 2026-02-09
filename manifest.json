@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "WebDAV浏览历史同步",
+  "version": "0.3.1",
+  "description": "通过WebDAV同步Chrome内核浏览器历史记录，生成可视化报告",
+  "permissions": [
+    "history",
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+  "background": {
+    "service_worker": "dist/background.bundle.js"
+  },
+  "action": {
+    "default_popup": "ui/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "ui/options.html",
+  "web_accessible_resources": [
+    {
+      "resources": ["ui/report.html"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; img-src 'self' data: https: http:; connect-src 'self' https: http:;"
+  }
+}

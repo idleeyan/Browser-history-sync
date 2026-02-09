@@ -1,0 +1,29 @@
+{
+  "name": "webdav-browser-history-sync",
+  "version": "0.3.1",
+  "description": "通过WebDAV同步Chrome内核浏览器历史记录，生成可视化报告",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "dev": "webpack --mode=development --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chrome-extension",
+    "webdav",
+    "browser-history",
+    "sync",
+    "visualization"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "chart.js": "^4.5.1",
+    "crypto-js": "^4.2.0",
+    "webdav": "^5.3.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  }
+}

@@ -1,0 +1,70 @@
+# 依赖目录
+node_modules/
+
+# 构建产物
+dist/
+build/
+
+# 日志文件
+*.log
+
+# 编辑器文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# 临时文件
+*.tmp
+*.temp
+
+# 环境变量
+.env
+.env.local
+
+# 测试文件
+*.test.js
+*.spec.js
+
+# 覆盖率报告
+coverage/
+.nyc_output/
+
+# npm 日志
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 可选 npm 缓存目录
+.npm
+
+# TypeScript 缓存
+*.tsbuildinfo
+
+# Parcel 打包缓存
+.cache/
+.parcel-cache/
+
+# Next.js 构建输出
+.next/
+out/
+
+# Nuxt.js 生成的文件
+.nuxt/
+dist/
+
+# Gatsby 缓存
+.cache/
+public/
+
+# Storybook 构建输出
+.out/
+.storybook-out/
+
+# 临时开发服务器日志
+*.log

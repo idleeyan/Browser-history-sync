@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebDAV历史同步 - 配置</title>
+  <link rel="stylesheet" href="options.css">
+  <style>
+    /* 基础样式备用 */
+    * { box-sizing: border-box; }
+    body { 
+      margin: 0; 
+      padding: 0; 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f3f4f6;
+      min-height: 100vh;
+    }
+    .container { 
+      max-width: 800px; 
+      margin: 0 auto; 
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    h1 { font-size: 24px; font-weight: bold; color: #1f2937; margin: 0 0 8px 0; }
+    h2 { font-size: 18px; font-weight: 600; color: #1f2937; margin: 0 0 16px 0; display: flex; align-items: center; }
+    h2 svg { margin-right: 8px; }
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-size: 14px; font-weight: 500; color: #374151; margin-bottom: 4px; }
+    .required { color: #ef4444; }
+    input[type="text"], input[type="url"], input[type="password"], select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .checkbox-group input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+    }
+    .checkbox-group label {
+      margin: 0;
+      font-weight: normal;
+    }
+    .help-text {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: #2563eb; color: white; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-secondary { background: #e5e7eb; color: #374151; }
+    .btn-secondary:hover { background: #d1d5db; }
+    .btn-success { background: #16a34a; color: white; }
+    .btn-success:hover { background: #15803d; }
+    .btn-warning { background: #ea580c; color: white; }
+    .btn-warning:hover { background: #c2410c; }
+    .btn-danger { background: #dc2626; color: white; }
+    .btn-danger:hover { background: #b91c1c; }
+    .btn-block { width: 100%; display: flex; }
+    .btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .btn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .feedback {
+      margin-top: 12px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      display: none;
+    }
+    .feedback.show { display: block; }
+    .feedback.success { background: #d1fae5; color: #065f46; }
+    .feedback.error { background: #fee2e2; color: #991b1b; }
+    .feedback.info { background: #dbeafe; color: #1e40af; }
+    .header { margin-bottom: 24px; }
+    .header p { color: #6b7280; margin: 4px 0 0 0; font-size: 14px; }
+    .footer {
+      text-align: center;
+      color: #9ca3af;
+      font-size: 12px;
+      margin-top: 24px;
+    }
+    .section-icon { color: #3b82f6; }
+    .section-icon.green { color: #10b981; }
+    .section-icon.purple { color: #8b5cf6; }
+    @media (max-width: 640px) {
+      .container { padding: 16px; }
+      .card { padding: 16px; }
+      h1 { font-size: 20px; }
+      h2 { font-size: 16px; }
+      .btn-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 标题 -->
+    <div class="header">
+      <h1>WebDAV历史同步配置</h1>
+      <p>配置WebDAV服务器连接和同步选项</p>
+    </div>
+
+    <!-- 连接配置 -->
+    <div class="card">
+      <h2>
+        <svg class="section-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+        </svg>
+        WebDAV连接配置
+      </h2>
+      
+      <form id="webdavConfigForm">
+        <div class="form-group">
+          <label for="webdavUrl">
+            WebDAV服务器地址 <span class="required">*</span>
+          </label>
+          <input 
+            type="url" 
+            id="webdavUrl" 
+            name="webdavUrl"
+            required
+            placeholder="https://dav.example.com/remote.php/dav/files/用户名/"
+          >
+          <p class="help-text">例如：https://dav.example.com/remote.php/dav/files/username/</p>
+        </div>
+
+        <div class="form-group">
+          <label for="webdavUsername">
+            用户名 <span class="required">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="webdavUsername" 
+            name="webdavUsername"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="webdavPassword">
+            密码 <span class="required">*</span>
+          </label>
+          <input 
+            type="password" 
+            id="webdavPassword" 
+            name="webdavPassword"
+            required
+          >
+        </div>
+
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary btn-block">
+            保存配置
+          </button>
+          <button type="button" id="testConnectionBtn" class="btn btn-secondary btn-block">
+            测试连接
+          </button>
+        </div>
+      </form>
+
+      <div id="connectionFeedback" class="feedback"></div>
+    </div>
+
+    <!-- 加密配置 -->
+    <div class="card">
+      <h2>
+        <svg class="section-icon green" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+        </svg>
+        数据加密配置
+      </h2>
+      
+      <form id="encryptConfigForm">
+        <div class="checkbox-group">
+          <input 
+            type="checkbox" 
+            id="encryptEnabled" 
+            name="encryptEnabled"
+            checked
+          >
+          <label for="encryptEnabled">启用数据加密（推荐）</label>
+        </div>
+
+        <div class="form-group">
+          <label for="encryptKey">
+            加密密钥 <span class="required">*</span>
+          </label>
+          <input 
+            type="password" 
+            id="encryptKey" 
+            name="encryptKey"
+            required
+            minlength="8"
+            placeholder="至少8位字符"
+          >
+          <p class="help-text">密钥将用于加密您的历史数据，请妥善保管。如果丢失，将无法解密数据。</p>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-block">
+          保存加密配置
+        </button>
+      </form>
+
+      <div id="encryptFeedback" class="feedback"></div>
+    </div>
+
+    <!-- 同步配置 -->
+    <div class="card">
+      <h2>
+        <svg class="section-icon purple" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+        </svg>
+        同步设置
+      </h2>
+      
+      <form id="syncConfigForm">
+        <div class="checkbox-group">
+          <input 
+            type="checkbox" 
+            id="syncEnabled" 
+            name="syncEnabled"
+            checked
+          >
+          <label for="syncEnabled">启用自动同步</label>
+        </div>
+
+        <div class="form-group">
+          <label for="syncFrequency">同步频率</label>
+          <select id="syncFrequency" name="syncFrequency">
+            <option value="60000">每1分钟</option>
+            <option value="300000">每5分钟</option>
+            <option value="600000">每10分钟</option>
+            <option value="1800000">每30分钟</option>
+            <option value="3600000" selected>每1小时</option>
+            <option value="21600000">每6小时</option>
+            <option value="86400000">每天</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-block" style="background: #8b5cf6; color: white;">
+          保存同步设置
+        </button>
+      </form>
+
+      <div id="syncFeedback" class="feedback"></div>
+    </div>
+
+    <!-- 操作按钮 -->
+    <div class="card">
+      <h2>手动操作</h2>
+      
+      <div class="btn-grid">
+        <button id="manualUploadBtn" class="btn btn-primary">
+          立即上传
+        </button>
+        <button id="manualDownloadBtn" class="btn btn-success">
+          立即下载
+        </button>
+        <button id="clearCacheBtn" class="btn btn-warning">
+          清空本地缓存
+        </button>
+        <button id="resetConfigBtn" class="btn btn-danger">
+          重置所有配置
+        </button>
+      </div>
+
+      <div id="actionFeedback" class="feedback"></div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer">
+      <p>版本 0.2.0 | WebDAV历史同步扩展</p>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
